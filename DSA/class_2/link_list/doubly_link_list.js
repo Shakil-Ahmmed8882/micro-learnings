@@ -44,8 +44,43 @@
       this.head = newNode;
     }
 
-    
+    remove(data) {
+      if (!this.head) {
+        return false;
+      }
 
+      let current = this.head;
+
+      while (current.data !== data) {
+        current = current.next;
+        continue;
+      }
+
+      // If there is only one node
+      if (current === this.head && current === this.tail) {
+        this.head = null;
+        this.tail = null;
+        this.size--;
+        return true;
+      }
+
+      if (current == this.head) {
+        this.head = current.next;
+        this.head.prev = null;
+        this.size--;
+        return;
+      }
+
+      if (current == this.tail) {
+        this.tail = current.prev;
+        this.tail.next = null;
+        this.size--;
+        return;
+      }
+
+      current.prev.next = current.next;
+      current.next.prev = current.prev;
+    }
   }
 
   const List = new DoublyLinkList();
